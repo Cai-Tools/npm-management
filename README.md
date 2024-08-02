@@ -1,2 +1,3 @@
-# change-npm-source
+# npm-management
+
 A tool for managing npm sources

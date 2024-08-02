@@ -6,7 +6,7 @@
     "distDir": "../dist"
   },
   "package": {
-    "productName": "change-npm-source",
+    "productName": "npm-management",
     "version": "0.0.0"
   },
   "tauri": {
@@ -21,7 +21,7 @@
     },
     "windows": [
       {
-        "title": "change-npm-source",
+        "title": "NPM Management",
         "width": 800,
         "height": 600
       }
@@ -30,7 +30,7 @@
       "csp": null
     },
     "bundle": {
-      "identifier": "change-npm-source",
+      "identifier": "com.npm-management.app",
       "active": true,
       "targets": "all",
       "icon": [
