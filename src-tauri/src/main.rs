@@ -1,14 +1,17 @@
 // Prevents additional console window on Windows in release, DO NOT REMOVE!!
 #![cfg_attr(not(debug_assertions), windows_subsystem = "windows")]
 
-use std::process::Command;
+use std::{os::windows::process::CommandExt, process::Command};
 use tauri::api::process::restart;
 
 // Learn more about Tauri commands at https://tauri.app/v1/guides/features/command
 #[tauri::command]
 fn execute_cmd_command(cmd_command: &str) -> String {
+    // 关于设置Windows cmd https://github.com/tauri-apps/tauri/issues/10452
+    const CREATE_NO_WINDOW: u32 = 0x08000000;
     let output = Command::new("cmd")
         .args(&["/C", cmd_command])
+        .creation_flags(CREATE_NO_WINDOW)
         .output()
         .expect("failed");
 
