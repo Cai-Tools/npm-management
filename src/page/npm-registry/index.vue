@@ -7,18 +7,26 @@
       </TDLink>
     </template>
     <template #action>
-      <RefreshIcon class="action" @click="getRegistry" :style="{ color: getTheme(refreshIconType) }" />
+      <RefreshIcon :class="[refreshIconType === 'warning' ? 'action_refresh' : 'action']" @click="getRegistry"
+        :style="{ color: getTheme(refreshIconType) }" />
     </template>
   </TDTable>
+
   <TDDivider>
     <DogeIcon />
   </TDDivider>
+
   <TDTable :columns="registryColumns" :data="registryData" rowKey="key" bordered>
     <template #registry="{ row }">
-      <TDLink target="_blank" :href="row.registry" theme="success" underline>{{ row.registry }}</TDLink>
+      <TDLink target="_blank" :href="row.registry"
+        :theme="installDesktopIconType.key === row.key ? installDesktopIconType.type : 'success'" underline>
+        {{ row.registry }}
+      </TDLink>
     </template>
     <template #action="{ row }">
-      <InstallDesktopIcon class="action" @click="installNpmRegistry(row)"
+      <InstallDesktopIcon class="action" @click="installNpmRegistry(row)" :class="[installDesktopIconType.type === 'warning' &&
+        installDesktopIconType.key === row.key
+        ? 'action_install' : 'action']"
         :style="{ color: installDesktopIconType.key === row.key ? getTheme(installDesktopIconType.type) : '' }" />
     </template>
   </TDTable>
@@ -44,7 +52,7 @@ enum RefreshIconType {
 }
 
 const refreshIconType = ref<RefreshIconType>(RefreshIconType.WAITING);
-const installDesktopIconType = ref<{ key: number; type: RefreshIconType }>({ key: 0, type: RefreshIconType.WAITING });
+const installDesktopIconType = ref<{ key: number; type: RefreshIconType }>({ key: -1, type: RefreshIconType.WAITING });
 
 const currentColumns: TableProps['columns'] = [
   { colKey: 'registry', title: '当前源', align: 'center' },
@@ -87,6 +95,8 @@ const executeCmdCommand = async (cmdCommand: string): Promise<string> => await i
  * @description get npm registry
  */
 const getRegistry = async () => {
+  if (refreshIconType.value === RefreshIconType.LOADING) return;
+
   refreshIconType.value = RefreshIconType.LOADING;
   const registry = await executeCmdCommand('npm config get registry');
   if (registry === 'failed') {
@@ -104,6 +114,8 @@ const getRegistry = async () => {
  * @description npm registry install
  */
 const installNpmRegistry = async (row: TableData) => {
+  if (installDesktopIconType.value.type === RefreshIconType.LOADING) return;
+
   installDesktopIconType.value = { key: row.key, type: RefreshIconType.LOADING };
   const installNpmRegistryType = await executeCmdCommand(`npm config set registry ${row.registry}`);
 
@@ -128,5 +140,37 @@ onMounted(() => getRegistry());
 <style scoped>
 .action {
   cursor: pointer;
+}
+
+@keyframes spin {
+  from {
+    transform: rotate(0deg);
+  }
+
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+.action_refresh {
+  animation: spin 1s linear infinite;
+}
+
+@keyframes moveDown {
+  0% {
+    transform: translateY(0);
+  }
+
+  50% {
+    transform: translateY(4px);
+  }
+
+  100% {
+    transform: translateY(0);
+  }
+}
+
+.action_install {
+  animation: moveDown 1s linear infinite;
 }
 </style>
