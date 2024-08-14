@@ -4,12 +4,13 @@
   "version": "0.0.0",
   "type": "module",
   "scripts": {
+    "preinstall": "npx only-allow pnpm",
     "dev": "vite",
     "build": "vue-tsc --noEmit && vite build",
     "preview": "vite preview",
     "tauri": "tauri",
-    "tauri dev": "pnpm tauri dev",
-    "tauri build": "pnpm tauri build"
+    "tauri dev": "tauri dev",
+    "tauri build": "tauri build"
   },
   "dependencies": {
     "@tauri-apps/api": "^1",
