@@ -1,11 +1,13 @@
 // Prevents additional console window on Windows in release, DO NOT REMOVE!!
 #![cfg_attr(not(debug_assertions), windows_subsystem = "windows")]
+mod ability;
 
 use std::{os::windows::process::CommandExt, process::Command};
-use tauri::api::process::restart;
 
 // Learn more about Tauri commands at https://tauri.app/v1/guides/features/command
+
 #[tauri::command]
+/// 执行cmd命令
 fn execute_cmd_command(cmd_command: &str) -> String {
     // 关于设置Windows cmd https://github.com/tauri-apps/tauri/issues/10452
     const CREATE_NO_WINDOW: u32 = 0x08000000;
@@ -20,14 +22,16 @@ fn execute_cmd_command(cmd_command: &str) -> String {
     return version.to_string();
 }
 
-#[tauri::command]
-fn restart_tauri() {
-    restart(&tauri::Env::default());
-}
-
 fn main() {
-    tauri::Builder::default()
-        .invoke_handler(tauri::generate_handler![execute_cmd_command, restart_tauri])
-        .run(tauri::generate_context!())
-        .expect("error while running tauri application");
+    let context = tauri::generate_context!();
+
+    let builder = tauri::Builder::default()
+        .invoke_handler(tauri::generate_handler![execute_cmd_command])
+        .menu(tauri::Menu::os_default(&context.package_info().name))
+        .system_tray(ability::system_tray::menu()) // ✅ 将 `tauri.conf.json` 上配置的图标添加到系统托盘
+        .on_system_tray_event(ability::system_tray::handle_system_tray_event); // ✅ 注册系统托盘事件处理程序
+
+    builder
+        .run(tauri::generate_context!()) 
+        .expect("error while running tauri application");  
 }
