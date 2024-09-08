@@ -1,9 +1,11 @@
+import { NSTabs } from '@nordstjerna/ui';
+
 function App() {
 
   return (
-    <>
-    123
-    </>
+    <NSTabs>
+      123
+    </NSTabs>
   );
 }
 
