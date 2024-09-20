@@ -9,11 +9,11 @@ importers:
   .:
     dependencies:
       '@nordstjerna/style':
-        specifier: ^0.1.3
-        version: 0.1.3
+        specifier: ^0.1.6
+        version: 0.1.6
       '@nordstjerna/ui':
-        specifier: ^0.1.3
-        version: 0.1.3(solid-js@1.8.22)
+        specifier: ^0.1.6
+        version: 0.1.6(solid-js@1.8.22)
       '@tauri-apps/api':
         specifier: ^1
         version: 1.6.0
@@ -495,11 +495,11 @@ packages:
     resolution: {integrity: sha512-oGB+UxlgWcgQkgwo8GcEGwemoTFt3FIO9ababBmaGwXIoBKZ+GTy0pP185beGg7Llih/NSHSV2XAs1lnznocSg==}
     engines: {node: '>= 8'}
 
-  '@nordstjerna/style@0.1.3':
-    resolution: {integrity: sha512-7JXEf21UwPuSiAchk3wyOuEomNnxCHQt1M8PMO5tZgShCEzPdSAIBZifFd+85RDsiH9xYQ9hLG38sojTmD06DQ==}
+  '@nordstjerna/style@0.1.6':
+    resolution: {integrity: sha512-e373wMFA+ydWi1f6/PIknN2mtEw6W03PX795lYPlxRxQIyggNk1EbdZTMPAb/pDIvGdEeWvT2D+KswaFboR4iA==}
 
-  '@nordstjerna/ui@0.1.3':
-    resolution: {integrity: sha512-2feqtJlVW9ZF2ODxprn5+Ur4qA0hSQ/65f7S93q08scLk+XxpaQTBj01oPw3KcAsHw3/AlJQBqwztRqI6VW7AA==}
+  '@nordstjerna/ui@0.1.6':
+    resolution: {integrity: sha512-2gEGO35/8ObHVRUzBCNrsxZ20SgLDQvbuZQ0BUvBgYTeZGij7kPrD13+LMWW+cdCE1Fb1OpCgbu0s6q6rn2oUg==}
     peerDependencies:
       solid-js: ^1.8.16
 
@@ -2579,9 +2579,9 @@ snapshots:
       '@nodelib/fs.scandir': 2.1.5
       fastq: 1.17.1
 
-  '@nordstjerna/style@0.1.3': {}
+  '@nordstjerna/style@0.1.6': {}
 
-  '@nordstjerna/ui@0.1.3(solid-js@1.8.22)':
+  '@nordstjerna/ui@0.1.6(solid-js@1.8.22)':
     dependencies:
       '@kobalte/core': 0.13.6(solid-js@1.8.22)
       '@solidjs/router': 0.13.6(solid-js@1.8.22)

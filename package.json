@@ -13,8 +13,8 @@
     "tauri build": "tauri build"
   },
   "dependencies": {
-    "@nordstjerna/style": "^0.1.3",
-    "@nordstjerna/ui": "^0.1.3",
+    "@nordstjerna/style": "^0.1.6",
+    "@nordstjerna/ui": "^0.1.6",
     "@tauri-apps/api": "^1",
     "solid-js": "1.8.22"
   },
